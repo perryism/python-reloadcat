@@ -49,7 +49,7 @@ def find_test(src):
     files = get_patterns()
     test_file = "test_%s"%os.path.basename(src)
 
-    found = filter(lambda x: test_file in x, files)
+    found = list(filter(lambda x: test_file in x, files))
 
     return found[0] if len(found) > 0 else None
 
