@@ -33,14 +33,19 @@ class Patterns:
 
 DEFAULT_PATTERN_FILE = 'reloadcat.yaml'
 
-def get_patterns():
-    if os.path.isfile(DEFAULT_PATTERN_FILE):
+import glob
+
+def list_files(base_path):
+    return [os.path.join('.', f) for f in glob.glob("%s/**/*.py"%base_path, recursive=True)]
+
+def get_patterns(base_path = None):
+    if base_path:
+        return list_files(base_path) + list_files("tests")
+    elif os.path.isfile(DEFAULT_PATTERN_FILE):
         patterns = Patterns(DEFAULT_PATTERN_FILE).files()
     else:
         logging.fatal("%s is not found"%DEFAULT_PATTERN_FILE)
         sys.exit(1)
-
-    logging.debug("watching the following files %s"%patterns)
 
     return patterns
 
