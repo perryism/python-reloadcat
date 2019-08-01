@@ -18,11 +18,16 @@ if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("-v", "--verbose", help="verbose", type=str,  default="INFO", choices=["DEBUG", "INFO", "WARN"])
     parser.add_argument("-lf", "--log_format", help="log format", type=str,  default="%(asctime)s - %(message)s")
+    parser.add_argument("-d", "--watched_folder", help="folder to watch", type=str)
 
     args = parser.parse_args()
 
     logging.basicConfig(level=getattr(logging, args.verbose), format=args.log_format)
-    p = PatternMatchingEventHandler(patterns=get_patterns())
+
+    patterns = get_patterns(args.watched_folder)
+    logging.debug("watching the following files %s"%patterns)
+
+    p = PatternMatchingEventHandler(patterns=patterns)
     p.on_created = run_tests
     p.on_modified = run_tests
     observer = Observer()
