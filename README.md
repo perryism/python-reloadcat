@@ -9,7 +9,7 @@ python -m reloadcat
 Specify what files to be watched in reloadcat.yaml
 
 <pre>
-	patterns:
-    - ./tests/*.py
-    - ./my_project/*.py
+patterns:
+  - ./tests/*.py
+  - ./my_project/*.py
 </pre>

@@ -1,12 +1,12 @@
 import logging, re, os, sys
 from imp import reload as reload_module
 import importlib
-from . import ImportParser
+from . import ImportParser, src_to_module
 
 class Reloader:
     def __init__(self, src_path):
         self.parser = ImportParser(src_path)
-        self.module_name = re.sub("\.\w+$|^\.+/?", "", src_path).replace(os.sep, ".")
+        self.module_name = src_to_module(src_path) 
 
     def reload(self):
         self._reload(self.module_name)
@@ -32,5 +32,6 @@ class Reloader:
             reload_module(module)
             self._reload('.'.join(module.__name__.split('.')[:-1]))
         except:
+            logging.error(f"failed at loading {name}")
             logging.warning(sys.exc_info()[0])
 

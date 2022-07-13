@@ -1,5 +1,6 @@
 import importlib
 import re, os
+from . import src_to_module
 
 class ImportParser:
     def __init__(self, src):
@@ -9,7 +10,7 @@ class ImportParser:
         return re.sub("(\.py$|^\./)", "", self.src).replace(os.sep, ".")
 
     def subclass_of(self, cls):
-        m = importlib.import_module(self.module())
+        m = importlib.import_module(src_to_module(self.src))
 
         for klass in dir(m):
             attr = getattr(m, klass)
