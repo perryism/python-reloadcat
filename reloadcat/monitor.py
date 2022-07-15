@@ -21,7 +21,7 @@ class Patterns:
     def __init__(self, yaml_file):
         import yaml
         logging.info("reading %s"%yaml_file)
-        self.yaml = yaml.load(open(yaml_file,'r').read())
+        self.yaml = yaml.safe_load(open(yaml_file,'r').read())
 
     def files(self):
         flatten = lambda l: [item for sublist in l for item in sublist]
