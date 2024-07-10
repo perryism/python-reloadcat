@@ -1,5 +1,5 @@
 import logging, re, os, sys
-from imp import reload as reload_module
+from importlib import reload as reload_module
 import importlib
 from . import ImportParser, src_to_module
 

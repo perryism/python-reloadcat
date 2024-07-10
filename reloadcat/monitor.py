@@ -4,7 +4,7 @@ import logging
 from watchdog.observers import Observer
 from watchdog.events import LoggingEventHandler, FileModifiedEvent, PatternMatchingEventHandler, RegexMatchingEventHandler
 from .import_parser import ImportParser
-from imp import reload
+from importlib import reload
 from inspect import getmodule
 import importlib
 import glob
@@ -44,8 +44,9 @@ def get_patterns(base_path = None):
     elif os.path.isfile(DEFAULT_PATTERN_FILE):
         patterns = Patterns(DEFAULT_PATTERN_FILE).files()
     else:
-        logging.fatal("%s is not found"%DEFAULT_PATTERN_FILE)
-        sys.exit(1)
+        logging.warning("%s is not found"%DEFAULT_PATTERN_FILE)
+        patterns = ["./tests/*.py"]
+        logging.info(f"Watching {patterns[0]}")
 
     return patterns
 
