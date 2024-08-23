@@ -7,10 +7,13 @@ name = "reloadcat"
 authors = [
   {name = "Perry", email = "perryism@gmail.com"},
 ]
-version = "0.2.0"
+version = "0.2.1"
 description = "reloadcat is a tool for reloading tests in a loop"
 readme = "README.md"
 requires-python = ">=3.6"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
+
+[project.scripts]
+reloadcat = "reloadcat.cli:main"
